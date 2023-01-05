@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
+
 
 public class ObstacleSpawner : MonoBehaviour
 {
@@ -17,13 +19,16 @@ public class ObstacleSpawner : MonoBehaviour
 	private float distance;
 	[SerializeField]
 	private float density;
-	[SerializeField]
 	private Vector3 spawnLocation;
-	
+	[SerializeReference]
+	private float spawnSpeed;
+	[SerializeReference]
+	private float spawnHeight;
     
     void Start()
 	{
 		StartCoroutine(spawnObstacle());
+		
     }
 	
 	IEnumerator spawnObstacle()
@@ -41,7 +46,7 @@ public class ObstacleSpawner : MonoBehaviour
 				{
 					break;
 				}
-				spawnLocation = new Vector3(xlocation,2f,startOffSet);
+				spawnLocation = new Vector3(xlocation,spawnHeight,startOffSet);
 				int rnd = Random.Range(1,level);
 				if(rnd <= 1)
 				{
@@ -51,7 +56,7 @@ public class ObstacleSpawner : MonoBehaviour
 				{	
 					Instantiate(blue,spawnLocation,Quaternion.identity,this.transform);		
 				}
-				yield return new WaitForSeconds(0.01f);
+				yield return new WaitForSeconds(spawnSpeed);
 			}
 		}
 		StartCoroutine(spawnObstacle());

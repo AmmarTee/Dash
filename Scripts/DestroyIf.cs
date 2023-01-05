@@ -11,7 +11,7 @@ public class DestroyIf : MonoBehaviour
 	public Transform player;
 	
 	// Awake is called when the script instance is being loaded.
-	protected void Awake()
+	protected void Start()
 	{
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 	}
